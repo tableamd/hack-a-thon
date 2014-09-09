@@ -25,7 +25,6 @@ class ControlMouseWebSocket(tornado.websocket.WebSocketHandler):
         print "open websocket"
 
     def on_message(self, message):
-        print PORT
         mes = message.split(',')
         print "x-> ", mes[0],
         print "y-> ", mes[1],
