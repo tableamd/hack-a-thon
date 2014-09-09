@@ -1,0 +1,41 @@
+<html>
+	<head>
+		<title>ハッカソンネタ</title>
+		<meta charset="utf-8">
+		<script type="text/javascript"  src="http://bit.ly/1nHGgOL"></script>
+
+		<script type="text/javascript">
+			var x = 0
+			var y = 0
+			var z = 0
+
+			var socket = new WebSocket("ws://{{ ip }}:8000/move")
+
+			function sendData(data){
+				socket.send(data)
+			}
+
+			//イベントハンドラ登録
+			window.addEventListener('devicemotion', function(event) {
+
+  				$('#x').text(event.accelerationIncludingGravity.x);
+				$('#y').text(event.accelerationIncludingGravity.y);
+				$('#z').text(event.accelerationIncludingGravity.z);
+
+				x = event.accelerationIncludingGravity.x
+				y = event.accelerationIncludingGravity.y
+				z = event.accelerationIncludingGravity.z
+				sendData(x+","+y+","+z)
+			});
+
+		</script>
+	</head>
+
+	<body>
+		<h2>傾き加速度</h2>
+		<p>x: <span id='x'></span></p>
+		<p>y: <span id='y'></span></p>
+		<p>z: <span id='z'></span></p>
+	</body>
+
+</html>
